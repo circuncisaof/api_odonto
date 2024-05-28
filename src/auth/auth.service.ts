@@ -8,6 +8,7 @@ import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { AuthDto } from './dto/auth.dto';
 import { LoginPayload } from './dto/login-payload.dto';
+import { log } from 'console';
 @Injectable()
 export class AuthService {
   constructor(
@@ -18,9 +19,11 @@ export class AuthService {
   ) {}
 
   async auth({ email, password }: AuthDto) {
+    console.log(`auth service ${email},${password}`)
     const user = await this.usersRepo.findOneBy({
       email,
     });
+
     const comparehash = bcrypt.compare(user.password, password);
 
     if (!user || !comparehash) {

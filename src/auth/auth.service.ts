@@ -18,12 +18,14 @@ export class AuthService {
   ) {}
 
   async auth({ email, password }: AuthDto) {
+    console.log(`auth service ${email},${password}`)
     const user = await this.usersRepo.findOneBy({
       email,
     });
+
     const comparehash = bcrypt.compare(user.password, password);
 
-    if (!user || !comparehash) {
+    if (!user || !comparehash || user && comparehash === null) {
       throw new UnauthorizedException('Email or password incorrect');
     }
     return {

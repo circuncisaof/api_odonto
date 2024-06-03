@@ -1,3 +1,3 @@
 import { PharmDto } from './create-pharmaceuticals.dto';
 
-export class UpdateAddressDto extends PharmDto {}
+export class UpdatePharmDto extends PharmDto {}

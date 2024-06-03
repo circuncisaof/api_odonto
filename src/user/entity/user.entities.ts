@@ -1,11 +1,15 @@
+import { Cipher } from 'crypto';
 import { AddressEntity } from 'src/address/entities/address.entity';
+import { TypeUser } from 'src/enum/type_user.enum';
 import { NoteEntity } from 'src/note/entities/note.entity';
 import { ObservationEntity } from 'src/observation/entities/observation.entity';
 import { PharmaceuticalsEntity } from 'src/pharmaceuticals/entities/pharmaticeuticals.entity';
+import { TreatmentsEntity } from 'src/treatments/entities/treatments.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -29,20 +33,35 @@ export class UserEntity {
   email: string;
   @Column({ nullable: false })
   cell_phone: string;
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   password: string;
+  @Column({
+    type:"enum",
+    enum:TypeUser,
+    default:TypeUser.user
+  })
+  type_user:TypeUser;
   @CreateDateColumn()
   createdAt: string;
   @UpdateDateColumn()
   updateAt: string;
   @OneToOne(() => AddressEntity, (address) => address.user)
+  @JoinColumn()
   address?: AddressEntity;
 
   @OneToOne(() => ObservationEntity, (obs) => obs.user)
+  @JoinColumn()
   obs?: ObservationEntity;
+  
   @OneToOne(() => PharmaceuticalsEntity, (pharm) => pharm.user)
+  @JoinColumn()
   pharmaceuticals?: PharmaceuticalsEntity;
 
   @OneToOne(() => NoteEntity, (note) => note.user)
+  @JoinColumn()
   note?: NoteEntity;
+
+  @OneToOne(()=>TreatmentsEntity, (treat) => treat.user)
+  @JoinColumn()
+  treat?:TreatmentsEntity
 }

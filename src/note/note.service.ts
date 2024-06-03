@@ -4,6 +4,7 @@ import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { CreateNotesDto } from './dto/create-note.dto';
 import { NoteEntity } from './entities/note.entity';
+import { UpdateNoteDto } from './dto/update-note.dto';
 
 @Injectable()
 export class NoteService {
@@ -21,4 +22,12 @@ export class NoteService {
     this.noteRepo.create({ ...noteCreate, user_id });
     return this.noteRepo.save({ ...noteCreate, user_id });
   }
+
+  async update( data: UpdateNoteDto,
+    user_id: string,){
+      await this.userService.existsUserId(user_id);
+
+      this.noteRepo.update(user_id, data)
+
+    }
 }

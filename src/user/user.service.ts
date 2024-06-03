@@ -10,6 +10,7 @@ import { CreateUser } from './dto/create-user.dto';
 import { PartialUpdate } from './dto/update-partial-user';
 import { UpdateUser } from './dto/update-user.dto';
 import { UserEntity } from './entity/user.entities';
+import { TypeUser } from 'src/enum/type_user.enum';
 
 @Injectable()
 export class UserService {
@@ -27,13 +28,15 @@ export class UserService {
   }
 
   async find_all(): Promise<UserEntity[]> {
-    return this.usersRepo.find();
+    return this.usersRepo.find({
+      where:{ type_user:TypeUser.user}
+    });
   }
 
   async find_id(id: string): Promise<UserEntity> {
     return this.usersRepo.findOne({
-      where: { id },
-      relations: ['address', 'obs', 'pharmaceuticals', 'note'],
+      where: { id:id, type_user:TypeUser.user },
+      relations: ['address', 'obs', 'pharmaceuticals', 'note','treat'],
     });
   }
 

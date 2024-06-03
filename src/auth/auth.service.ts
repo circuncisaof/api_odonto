@@ -8,7 +8,6 @@ import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { AuthDto } from './dto/auth.dto';
 import { LoginPayload } from './dto/login-payload.dto';
-import { log } from 'console';
 @Injectable()
 export class AuthService {
   constructor(
@@ -26,7 +25,7 @@ export class AuthService {
 
     const comparehash = bcrypt.compare(user.password, password);
 
-    if (!user || !comparehash) {
+    if (!user || !comparehash || user && comparehash === null) {
       throw new UnauthorizedException('Email or password incorrect');
     }
     return {

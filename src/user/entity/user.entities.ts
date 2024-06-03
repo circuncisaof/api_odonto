@@ -1,7 +1,10 @@
+import { Cipher } from 'crypto';
 import { AddressEntity } from 'src/address/entities/address.entity';
+import { TypeUser } from 'src/enum/type_user.enum';
 import { NoteEntity } from 'src/note/entities/note.entity';
 import { ObservationEntity } from 'src/observation/entities/observation.entity';
 import { PharmaceuticalsEntity } from 'src/pharmaceuticals/entities/pharmaticeuticals.entity';
+import { TreatmentsEntity } from 'src/treatments/entities/treatments.entity';
 import {
   Column,
   CreateDateColumn,
@@ -29,8 +32,14 @@ export class UserEntity {
   email: string;
   @Column({ nullable: false })
   cell_phone: string;
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   password: string;
+  @Column({
+    type:"enum",
+    enum:TypeUser,
+    default:TypeUser.user
+  })
+  type_user:TypeUser;
   @CreateDateColumn()
   createdAt: string;
   @UpdateDateColumn()
@@ -45,4 +54,7 @@ export class UserEntity {
 
   @OneToOne(() => NoteEntity, (note) => note.user)
   note?: NoteEntity;
+
+  @OneToOne(()=>TreatmentsEntity, (treat) => treat.user)
+  treat?:TreatmentsEntity
 }

@@ -9,6 +9,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -45,16 +46,22 @@ export class UserEntity {
   @UpdateDateColumn()
   updateAt: string;
   @OneToOne(() => AddressEntity, (address) => address.user)
+  @JoinColumn()
   address?: AddressEntity;
 
   @OneToOne(() => ObservationEntity, (obs) => obs.user)
+  @JoinColumn()
   obs?: ObservationEntity;
+  
   @OneToOne(() => PharmaceuticalsEntity, (pharm) => pharm.user)
+  @JoinColumn()
   pharmaceuticals?: PharmaceuticalsEntity;
 
   @OneToOne(() => NoteEntity, (note) => note.user)
+  @JoinColumn()
   note?: NoteEntity;
 
   @OneToOne(()=>TreatmentsEntity, (treat) => treat.user)
+  @JoinColumn()
   treat?:TreatmentsEntity
 }

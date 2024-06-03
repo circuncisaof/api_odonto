@@ -4,6 +4,7 @@ import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { PharmDto } from './dto/create-pharmaceuticals.dto';
 import { PharmaceuticalsEntity } from './entities/pharmaticeuticals.entity';
+import { UpdatePharmDto } from './dto/update-pharmaceuticals.dto';
 
 @Injectable()
 export class PharmaceuticalsService {
@@ -21,5 +22,12 @@ export class PharmaceuticalsService {
     this.pharmRepo.create({ ...pharmDto, user_id });
 
     return this.pharmRepo.save({ ...pharmDto, user_id });
+  }
+
+
+  async update(data: UpdatePharmDto,user_id:string){
+    await this.userService.find_id(user_id);
+
+    return this.pharmRepo.update(user_id,data  );
   }
 }

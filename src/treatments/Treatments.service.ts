@@ -4,6 +4,8 @@ import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { TreatmentsDto } from './dto/create-treatments.dto';
 import { TreatmentsEntity } from './entities/treatments.entity';
+import { PartialUpdateTreat } from './dto/update-partial-treatments';
+import { UpdateTreatDto } from './dto/update-treatments.dto';
 
 @Injectable()
 export class TreatmentService {
@@ -20,5 +22,18 @@ export class TreatmentService {
     await this.userService.find_id(user_id);
     this.treatRepo.create({ ...treat, user_id });
     return this.treatRepo.save({ ...treat, user_id });
+  }
+
+
+  async update_partial(data: PartialUpdateTreat, user_id:string){
+    await this.userService.find_id(user_id);
+    return this.treatRepo.update( user_id,data )
+
+  }
+
+  async update(data: UpdateTreatDto, user_id:string){
+    await this.userService.find_id(user_id);
+    return this.treatRepo.update( user_id,data )
+
   }
 }

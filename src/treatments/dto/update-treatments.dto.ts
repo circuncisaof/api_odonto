@@ -1,3 +1,3 @@
 import { TreatmentsDto } from './create-treatments.dto';
 
-export class UpdateAddressDto extends TreatmentsDto {}
+export class UpdateTreatDto extends TreatmentsDto {}

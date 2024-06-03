@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { TreatmentsDto } from './create-treatments.dto';
 
-export class PartialUpdate extends PartialType(TreatmentsDto) {}
+export class PartialUpdateTreat extends PartialType(TreatmentsDto) {}

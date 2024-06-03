@@ -14,6 +14,7 @@ export class TreatmentsEntity {
 
   @Column({ name: 'user_id', nullable: false })
   user_id: string;
+  
   @Column()
   type_consultation: string;
 
